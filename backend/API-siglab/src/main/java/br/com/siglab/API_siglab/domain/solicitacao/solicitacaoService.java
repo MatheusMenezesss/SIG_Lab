@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.repository.CrudRepository;
+//import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,9 +22,8 @@ public class SolicitacaoService {
 
     //1. Salvar uma nova solicitação
     public Solicitacao createSolicitacao(Solicitacao solicitacao){
-        if(solicitacao.getId() == null){
-            throw new IllegalArgumentException("Usuarios e equipamentos sao obrigatorios")
-
+        if (solicitacao.getUsuarioId() == null || solicitacao.getEquipamentoId() == null) {
+            throw new IllegalArgumentException("Usuário e equipamento são obrigatórios.");
         }
 
         return solicitacaoRepository.save(solicitacao);
@@ -35,9 +34,8 @@ public class SolicitacaoService {
         Optional<Solicitacao> solicitacaoOptional = solicitacaoRepository.findById(id);
         //CrudRepository<Solicitacao> solicitacaoOptional;
         //retorna o objeto se existir. caso contrário retorna um objeto nulo.
-        return solicitacaoOptional.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Solicitacao nao encontrada para o id: " + id));
-
+        return solicitacaoOptional.orElseThrow(() -> 
+            new IllegalArgumentException("Solicitação não encontrada para o ID: " + id));
     }
     
     //3. Lista todas as solicitações

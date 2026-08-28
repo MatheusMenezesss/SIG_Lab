@@ -16,8 +16,8 @@ public class SolicitacaoController {
     private final SolicitacaoService solicitacaoService;
 
     //Constructor para injetar a dependência do SolicitacaoService
-    public SolicitacaoController(){
-        solicitacaoService = new SolicitacaoService();
+    public SolicitacaoController(SolicitacaoService solicitacaoService) {
+        this.solicitacaoService = solicitacaoService;
     }
 
     //1. Create 
@@ -51,7 +51,7 @@ public class SolicitacaoController {
     @PutMapping("/{id}")
     public ResponseEntity<Solicitacao> updateSolicitacaoById(@PathVariable("id") UUID id, @RequestBody Solicitacao updateSolicitacao) {
         // Lógica para atualizar a solicitação pelo ID
-        Solicitacao updatedSolicitacao = solicitacaoService.updateSolicitacaoById(id, updateSolicitacao);
+        Solicitacao updatedSolicitacao = solicitacaoService.atualizarSolicitacao(id, updateSolicitacao);
         if (updatedSolicitacao != null){
             return ResponseEntity.ok(updatedSolicitacao);
         }
