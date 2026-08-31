@@ -3,6 +3,8 @@ package br.com.siglab.API_siglab.domain.usuario;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,12 +25,9 @@ public class Usuario {
     private UUID id;
 
     @NotBlank
-    @Column(name = "nome", nullable = false)
     private String nome;
 
     @NotBlank
-    @Email
-    @Column(name = "email", nullable = false)
     private String email;
 
     @NotBlank
@@ -40,16 +39,17 @@ public class Usuario {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
+    @JdbcType(PostgreSQLEnumJdbcType.class)
+    @Column(name = "perfil", nullable = false)
     private Role role;
 
     @NotNull
-    @Column(name = "create_at", nullable = false)
-    private java.time.LocalDateTime createdAt;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
     @NotNull
-    @Column(name = "update_at", nullable = false)
-    private java.time.LocalDateTime updatedAt;
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
 
     //Contrutor padrão
@@ -62,10 +62,10 @@ public class Usuario {
     }
 
     //Contrutor com parametros
-    public Usuario(String nome, String amil, String senha, Role role) {
+    public Usuario(String nome, String email, String senha, Role role) {
         this();
         this.nome = nome;
-        this.email = amil;
+        this.email = email;
         this.senha = senha;
         this.role = role;
     }

@@ -22,7 +22,7 @@ public class Solicitacao {
     private UUID id;
 
     @NotNull
-    @Column(name = "usuarios_id", nullable = false)
+    @Column(name = "usuario_id", nullable = false)
     private UUID usuarioId;
 
     @NotNull
@@ -49,17 +49,17 @@ public class Solicitacao {
     @Column(name = "data_resposta")
     private LocalDateTime dataResposta;
 
-    @NotNull
     @Column(name = "motivo_resposta")
     private String motivoResposta;
 
     @NotNull
-    @Column(name = "create_at", nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @NotNull
-    @Column(name = "update_at", nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+    
     public Solicitacao(){
         this.status = StatusSolicitacao.PENDENTE;
         this.dataSolicitacao = LocalDateTime.now();
